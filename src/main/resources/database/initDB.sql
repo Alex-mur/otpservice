@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS "operations" (
 	"otp_id" BIGINT NOT NULL,
 	"description" VARCHAR NULL DEFAULT NULL,
 	PRIMARY KEY ("id"),
-	CONSTRAINT "otp_id__otps_id" FOREIGN KEY ("otp_id") REFERENCES "otps" ("id") ON UPDATE CASCADE ON DELETE CASCADE
+	CONSTRAINT "otp_id__otps_id" FOREIGN KEY ("otp_id") REFERENCES "otps" ("id")
 );
 
 CREATE TABLE IF NOT EXISTS "otp_conf" (
