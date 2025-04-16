@@ -6,11 +6,16 @@ import jakarta.persistence.*;
 @Table(name = "operations")
 public class Operation {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "otp_id", nullable = false)
     private Otp otp;
+
+    @ManyToOne
+    @JoinColumn(name = "user_login", nullable = false)
+    private User user;
 
     private String description;
 

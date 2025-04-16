@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "otps")
 public class Otp {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -14,6 +15,10 @@ public class Otp {
     @ManyToOne
     @JoinColumn(name = "state", referencedColumnName = "state")
     private OtpState state;
+
+    @ManyToOne
+    @JoinColumn(name = "user_login")
+    private User user;
 
     public Long getId() {
         return id;
