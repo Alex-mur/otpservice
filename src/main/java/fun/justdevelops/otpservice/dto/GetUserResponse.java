@@ -3,7 +3,6 @@ package fun.justdevelops.otpservice.dto;
 import fun.justdevelops.otpservice.model.entity.Otp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import java.util.List;
 

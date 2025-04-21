@@ -12,23 +12,26 @@ import fun.justdevelops.otpservice.model.entity.User;
 import fun.justdevelops.otpservice.model.repo.OtpConfigRepo;
 import fun.justdevelops.otpservice.model.repo.OtpRepo;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.List;;
 
 @Service
 @Transactional
 public class OtpService {
     private final OtpRepo repo;
-    OtpConfigRepo otpConfigRepo;
+    private final OtpConfigRepo otpConfigRepo;
+    private final OtpDispatcherService otpDispatcherService;
 
-    public OtpService(OtpRepo repo, OtpConfigRepo otpConfigRepo) {
+    @Autowired
+    public OtpService(OtpRepo repo, OtpConfigRepo otpConfigRepo, OtpDispatcherService otpDispatcherService) {
         this.repo = repo;
         this.otpConfigRepo = otpConfigRepo;
+        this.otpDispatcherService = otpDispatcherService;
     }
 
     public List<Otp> getUserOtps(String login) {
@@ -64,6 +67,7 @@ public class OtpService {
             LocalDateTime.now().plusSeconds(otpConfig.getLifetime())
         );
         repo.save(otp);
+        otpDispatcherService.sendOtp(user.getChannelType(), user.getOtpDestination(), otp.getValue());
 
         return new ResponseWithMessage("OTP код отправлен");
     }

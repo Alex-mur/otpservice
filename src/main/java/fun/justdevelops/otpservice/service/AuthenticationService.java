@@ -6,6 +6,7 @@ import fun.justdevelops.otpservice.model.Role;
 import fun.justdevelops.otpservice.model.entity.User;
 import fun.justdevelops.otpservice.dto.JwtAuthenticationResponse;
 import fun.justdevelops.otpservice.dto.SignUpRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class AuthenticationService {
     private final UserService userService;
@@ -36,9 +38,10 @@ public class AuthenticationService {
         if (!userService.isAdminExists()) {
             targetRole = Role.ADMIN;
         }
-        var user = new User(request.getLogin(), encodedPassword, request.getEmail(), targetRole);
+        var user = new User(request.getLogin(), encodedPassword, request.getOtpDestination(), targetRole, request.getChannelType());
         userService.create(user);
         var jwt = jwtService.generateToken(user);
+        log.info("Пользователь создан: {}", user.getLogin());
         return new JwtAuthenticationResponse(jwt);
     }
 

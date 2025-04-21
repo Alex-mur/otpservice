@@ -1,6 +1,6 @@
 package fun.justdevelops.otpservice.model.entity;
 
-public enum OtpSendChannel {
+public enum ChannelType {
     SMS,
     EMAIL,
     TELEGRAM,

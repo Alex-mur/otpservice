@@ -19,22 +19,23 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Column(nullable = false, unique = true, name = "otp_destination")
+    private String otpDestination;
 
     @Column(nullable = false)
     private Role role;
 
     @Column(nullable = false, name = "otp_send_channel")
-    private OtpSendChannel otpSendChannel = OtpSendChannel.EMAIL;
+    private ChannelType channelType = ChannelType.EMAIL;
 
     public User() {}
 
-    public User(String login, String password, String email, Role role) {
+    public User(String login, String password, String otpDestination, Role role, ChannelType channelType) {
         this.login = login;
         this.password = password;
-        this.email = email;
+        this.otpDestination = otpDestination;
         this.role = role;
+        this.channelType = channelType;
     }
 
     @Override
@@ -85,6 +86,26 @@ public class User implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getOtpDestination() {
+        return otpDestination;
+    }
+
+    public void setOtpDestination(String otpDestination) {
+        this.otpDestination = otpDestination;
+    }
+
+    public ChannelType getChannelType() {
+        return channelType;
+    }
+
+    public void setChannelType(ChannelType channelType) {
+        this.channelType = channelType;
     }
 }
 
