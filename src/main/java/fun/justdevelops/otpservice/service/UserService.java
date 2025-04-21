@@ -74,4 +74,7 @@ public class UserService {
                 .body(new ResponseWithMessage("Пользователь [" + login + "] не найден"));
     }
 
+    public boolean isAdminExists() {
+        return repo.existsByRole(Role.ADMIN);
+    }
 }

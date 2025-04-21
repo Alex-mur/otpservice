@@ -32,7 +32,11 @@ public class AuthenticationService {
 
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
         String encodedPassword = new BCryptPasswordEncoder().encode(request.getPassword());
-        var user = new User(request.getLogin(), encodedPassword, Role.USER);
+        Role targetRole = Role.USER;
+        if (!userService.isAdminExists()) {
+            targetRole = Role.ADMIN;
+        }
+        var user = new User(request.getLogin(), encodedPassword, request.getEmail(), targetRole);
         userService.create(user);
         var jwt = jwtService.generateToken(user);
         return new JwtAuthenticationResponse(jwt);

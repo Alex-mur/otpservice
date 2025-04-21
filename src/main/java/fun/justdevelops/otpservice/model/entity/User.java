@@ -19,14 +19,21 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
     @Column(nullable = false)
     private Role role;
 
+    @Column(nullable = false, name = "otp_send_channel")
+    private OtpSendChannel otpSendChannel = OtpSendChannel.EMAIL;
+
     public User() {}
 
-    public User(String login, String password, Role role) {
+    public User(String login, String password, String email, Role role) {
         this.login = login;
         this.password = password;
+        this.email = email;
         this.role = role;
     }
 

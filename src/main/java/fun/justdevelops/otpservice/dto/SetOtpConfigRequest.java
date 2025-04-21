@@ -1,27 +1,15 @@
 package fun.justdevelops.otpservice.dto;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
 public class SetOtpConfigRequest {
     private Integer lifetime;
     private Integer length;
-
-    public SetOtpConfigRequest(Integer lifetime, Integer length) {
-        this.lifetime = lifetime;
-        this.length = length;
-    }
-
-    public Integer getLifetime() {
-        return lifetime;
-    }
-
-    public void setLifetime(Integer lifetime) {
-        this.lifetime = lifetime;
-    }
-
-    public Integer getLength() {
-        return length;
-    }
-
-    public void setLength(Integer length) {
-        this.length = length;
-    }
 }

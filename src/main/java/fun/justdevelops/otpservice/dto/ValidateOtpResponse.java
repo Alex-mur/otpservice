@@ -1,18 +1,17 @@
 package fun.justdevelops.otpservice.dto;
 
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import fun.justdevelops.otpservice.model.entity.Otp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import java.util.List;
-
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetUserResponse {
-    public String login;
-    public String role;
-    public List<Otp> otps;
+public class ValidateOtpResponse {
+    private Otp otp;
+    @JsonProperty("is_valid")
+    private boolean isValid;
 }
